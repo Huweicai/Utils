@@ -1,19 +1,22 @@
 package GolangUtils
 
-import "net"
+import "testing"
 
 /*
 是否为公网有效IP
 是：true
 */
-func IsValidIp(ipStr string) bool {
-	ip := net.ParseIP(ipStr)
-	if ip == nil {
-		return false
+func TestIsValidIp(t *testing.T) {
+	if IsValidIp("192.168.1.1") {
+		t.Fatal("wrong")
 	}
-
-	_, private24BitBlock, _ := net.ParseCIDR("10.0.0.0/8")
-	_, private20BitBlock, _ := net.ParseCIDR("172.16.0.0/12")
-	_, private16BitBlock, _ := net.ParseCIDR("192.168.0.0/16")
-	return !(private24BitBlock.Contains(ip) || private20BitBlock.Contains(ip) || private16BitBlock.Contains(ip))
+	if !IsValidIp("39.6.6.7") {
+		t.Fatal("wrong")
+	}
+	if IsValidIp("10.8.125.1") {
+		t.Fatal("wrong")
+	}
+	if IsValidIp("8.8.8.8") {
+		t.Fatal("wrong")
+	}
 }
