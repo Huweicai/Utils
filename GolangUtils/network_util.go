@@ -1,5 +1,7 @@
 package GolangUtils
 
+import "net"
+
 /*
 是否为公网有效IP
 是：true
@@ -15,4 +17,3 @@ func IsValidIp(ipStr string) bool {
 	_, private16BitBlock, _ := net.ParseCIDR("192.168.0.0/16")
 	return !(private24BitBlock.Contains(ip) || private20BitBlock.Contains(ip) || private16BitBlock.Contains(ip))
 }
-
